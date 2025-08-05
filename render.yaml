@@ -1,0 +1,55 @@
+services:
+  # PostgreSQL Database
+  - type: pserv
+    name: retail-analytics-db
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.db
+    
+  # Backend API
+  - type: web
+    name: retail-analytics-backend
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    rootDir: ./backend
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: retail-analytics-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 30
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_ORIGINS
+        value: '["https://retail-analytics-frontend.onrender.com"]'
+      - key: MODEL_PATH
+        value: ./models/
+      - key: RETRAIN_INTERVAL_HOURS
+        value: 24
+
+  # Frontend
+  - type: web
+    name: retail-analytics-frontend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run preview -- --host 0.0.0.0 --port $PORT
+    rootDir: ./frontend
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://retail-analytics-backend.onrender.com
+
+databases:
+  - name: retail-analytics-db
+    databaseName: retail_analytics
+    user: retail_user
+    plan: free

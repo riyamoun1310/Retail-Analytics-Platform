@@ -341,7 +341,26 @@ npm test
 
 ## 📦 Deployment
 
-### Docker Deployment
+### Quick Deploy to Render (Recommended)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/riyamoun1310/Retail-Analytics-Platform)
+
+1. **One-Click Deploy**: Click the button above
+2. **Configure**: Set your environment variables
+3. **Launch**: Your app will be live in minutes!
+
+**Live Demo**: [https://retail-analytics-frontend.onrender.com](https://retail-analytics-frontend.onrender.com)
+
+### Manual Deployment Options
+
+#### Render (Cloud Platform)
+```bash
+# See DEPLOY_RENDER.md for detailed instructions
+git clone https://github.com/riyamoun1310/Retail-Analytics-Platform.git
+# Follow the step-by-step guide in DEPLOY_RENDER.md
+```
+
+#### Docker Deployment
 ```bash
 # Build and run with Docker Compose
 docker-compose up -d
