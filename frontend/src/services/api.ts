@@ -1,10 +1,20 @@
 import axios from 'axios'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+// Handle different environments
+const getApiBaseUrl = () => {
+  // Production environment (Vercel)
+  if (import.meta.env.PROD) {
+    return import.meta.env.VITE_API_BASE_URL || window.location.origin
+  }
+  // Development environment
+  return import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+}
+
+const API_BASE_URL = getApiBaseUrl()
 
 const api = axios.create({
   baseURL: `${API_BASE_URL}/api/v1`,
-  timeout: 10000,
+  timeout: 30000, // Increased timeout for serverless functions
   headers: {
     'Content-Type': 'application/json',
   },

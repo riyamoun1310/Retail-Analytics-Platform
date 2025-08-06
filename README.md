@@ -341,17 +341,25 @@ npm test
 
 ## 📦 Deployment
 
-### Quick Deploy to Render (Recommended)
+### Quick Deploy to Vercel ⚡
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/riyamoun1310/Retail-Analytics-Platform)
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/riyamoun1310/Retail-Analytics-Platform)
 
 1. **One-Click Deploy**: Click the button above
 2. **Configure**: Set your environment variables
 3. **Launch**: Your app will be live in minutes!
 
-**Live Demo**: [https://retail-analytics-frontend.onrender.com](https://retail-analytics-frontend.onrender.com)
+**Live Demo**: [Coming Soon - Deploy to see your live app!]
 
 ### Manual Deployment Options
+
+#### Vercel (Recommended for Frontend + API)
+```bash
+# See DEPLOY_VERCEL.md for detailed instructions
+git clone https://github.com/riyamoun1310/Retail-Analytics-Platform.git
+cd Retail-Analytics-Platform
+# Follow the step-by-step guide in DEPLOY_VERCEL.md
+```
 
 #### Render (Cloud Platform)
 ```bash

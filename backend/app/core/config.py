@@ -3,23 +3,31 @@ from typing import List
 import os
 
 class Settings(BaseSettings):
-    # Database
-    DATABASE_URL: str = "postgresql://username:password@localhost:5432/retail_analytics"
+    # Database - Use SQLite for Vercel deployment or PostgreSQL for production
+    DATABASE_URL: str = os.getenv(
+        "DATABASE_URL", 
+        "sqlite:///./retail_analytics.db"
+    )
     
     # Security
-    SECRET_KEY: str = "your-secret-key-here"
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
     # OpenAI
-    OPENAI_API_KEY: str = ""
+    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
     
     # Environment
-    ENVIRONMENT: str = "development"
-    DEBUG: bool = True
+    ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
+    DEBUG: bool = os.getenv("DEBUG", "True").lower() == "true"
     
-    # CORS
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:5173"]
+    # CORS - Updated for Vercel deployment
+    ALLOWED_ORIGINS: List[str] = [
+        "http://localhost:3000", 
+        "http://localhost:5173",
+        "https://vercel.app",
+        "https://*.vercel.app"
+    ]
     
     # ML Models
     MODEL_PATH: str = "./models/"
@@ -29,4 +37,5 @@ class Settings(BaseSettings):
         env_file = "../.env"
         case_sensitive = True
 
+# Create settings instance
 settings = Settings()
