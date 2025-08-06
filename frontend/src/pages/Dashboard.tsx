@@ -10,7 +10,7 @@ import {
   Brain,
   Target
 } from 'lucide-react'
-import { analyticsService, salesService, mlService } from '../services/api'
+import { analyticsService, salesService } from '../services/api'
 import MetricCard from '../components/Dashboard/MetricCard'
 import SalesChart from '../components/Dashboard/SalesChart'
 import TopProducts from '../components/Dashboard/TopProducts'
@@ -70,37 +70,29 @@ const Dashboard: React.FC = () => {
           title="Total Revenue"
           value={`$${salesOverview?.total_sales?.toLocaleString() || '0'}`}
           icon={DollarSign}
-          trend={12.5}
-          trendLabel="vs last month"
-          color="green"
-          isLoading={isLoading}
+          trend="up"
+          change="+12.5% vs last month"
         />
         <MetricCard
           title="Total Orders"
           value={salesOverview?.total_orders?.toLocaleString() || '0'}
           icon={ShoppingCart}
-          trend={8.2}
-          trendLabel="vs last month"
-          color="blue"
-          isLoading={isLoading}
+          trend="up"
+          change="+8.2% vs last month"
         />
         <MetricCard
           title="Active Customers"
           value={customerInsights?.total_customers?.toLocaleString() || '0'}
           icon={Users}
-          trend={5.7}
-          trendLabel="vs last month"
-          color="purple"
-          isLoading={isLoading}
+          trend="up"
+          change="+5.7% vs last month"
         />
         <MetricCard
           title="Products in Stock"
           value={inventoryStatus?.total_products?.toLocaleString() || '0'}
           icon={Package}
-          trend={-2.1}
-          trendLabel="vs last month"
-          color="orange"
-          isLoading={isLoading}
+          trend="down"
+          change="-2.1% vs last month"
         />
       </div>
 

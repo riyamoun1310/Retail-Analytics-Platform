@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-import { useLocation } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import Header from './Header'
 
@@ -8,8 +7,6 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const location = useLocation()
-  
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}

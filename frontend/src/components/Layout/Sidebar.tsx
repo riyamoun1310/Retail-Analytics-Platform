@@ -7,7 +7,6 @@ import {
   Users, 
   Warehouse,
   BarChart3, 
-  FileText,
   Brain
 } from 'lucide-react'
 
