@@ -7,7 +7,8 @@ import uvicorn
 from datetime import datetime
 
 # Import routers
-from app.api.routers import products, sales, customers, analytics, ml_models, reports
+from app.api.routers import products, sales, customers, analytics, reports
+# from app.api.routers import ml_models  # Disabled for initial deployment
 from app.database.connection import get_db, engine
 from app.database import models
 from app.core.config import settings
@@ -56,7 +57,7 @@ app.include_router(products.router, prefix="/api/v1/products", tags=["products"]
 app.include_router(sales.router, prefix="/api/v1/sales", tags=["sales"])
 app.include_router(customers.router, prefix="/api/v1/customers", tags=["customers"])
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["analytics"])
-app.include_router(ml_models.router, prefix="/api/v1/ml", tags=["machine-learning"])
+# app.include_router(ml_models.router, prefix="/api/v1/ml", tags=["machine-learning"])  # Disabled
 app.include_router(reports.router, prefix="/api/v1/reports", tags=["reports"])
 
 @app.get("/")
