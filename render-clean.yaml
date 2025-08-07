@@ -1,0 +1,44 @@
+# Render Blueprint - Fixed for deployment
+services:
+  - type: web
+    name: retail-analytics-backend
+    env: python
+    plan: free
+    region: oregon
+    runtime: python-3.11.7
+    buildCommand: |
+      cd backend && 
+      pip install --upgrade pip setuptools wheel && 
+      pip install --no-cache-dir --only-binary=all -r requirements.txt
+    startCommand: cd backend && python simple_app.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.7
+      - key: DATABASE_URL
+        value: sqlite:///./retail_analytics.db
+      - key: SECRET_KEY
+        value: your-secret-key-here-replace-this
+      - key: OPENAI_API_KEY
+        value: your-openai-api-key-here-replace-this
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 30
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_ORIGINS
+        value: '["https://retail-analytics-frontend.onrender.com"]'
+
+  # Frontend
+  - type: web
+    name: retail-analytics-frontend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run preview -- --host 0.0.0.0 --port $PORT
+    rootDir: ./frontend
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://retail-analytics-backend.onrender.com
