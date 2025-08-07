@@ -1,11 +1,4 @@
 services:
-  # PostgreSQL Database
-  - type: pserv
-    name: retail-analytics-db
-    env: docker
-    plan: free
-    dockerfilePath: ./Dockerfile.db
-    
   # Backend API
   - type: web
     name: retail-analytics-backend
@@ -20,7 +13,9 @@ services:
           name: retail-analytics-db
           property: connectionString
       - key: SECRET_KEY
-        generateValue: true
+        value: pmca05CPsHxV3avL7KtTWC_kkB3pl4mrZ3fmPraJacA
+      - key: OPENAI_API_KEY
+        value: your-openai-api-key-here
       - key: ALGORITHM
         value: HS256
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
@@ -28,7 +23,7 @@ services:
       - key: ENVIRONMENT
         value: production
       - key: DEBUG
-        value: False
+        value: false
       - key: ALLOWED_ORIGINS
         value: '["https://retail-analytics-frontend.onrender.com"]'
       - key: MODEL_PATH
