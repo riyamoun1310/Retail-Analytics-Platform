@@ -4,6 +4,8 @@ import os
 import json
 
 class Settings(BaseSettings):
+    model_config = {"extra": "ignore"}  # Allow extra fields
+    
     # Database - Use SQLite for Vercel deployment or PostgreSQL for production
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL", 
@@ -40,10 +42,6 @@ class Settings(BaseSettings):
     # ML Models
     MODEL_PATH: str = "./models/"
     RETRAIN_INTERVAL_HOURS: int = 24
-    
-    class Config:
-        env_file = "../.env"
-        case_sensitive = True
 
 # Create settings instance
 settings = Settings()
