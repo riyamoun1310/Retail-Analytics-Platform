@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 from typing import List
 import os
+import json
 
 class Settings(BaseSettings):
     # Database - Use SQLite for Vercel deployment or PostgreSQL for production
@@ -21,13 +22,20 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
     DEBUG: bool = os.getenv("DEBUG", "True").lower() == "true"
     
-    # CORS - Updated for Vercel deployment
-    ALLOWED_ORIGINS: List[str] = [
-        "http://localhost:3000", 
-        "http://localhost:5173",
-        "https://vercel.app",
-        "https://*.vercel.app"
-    ]
+    # CORS - Parse from environment variable or use defaults
+    @property
+    def ALLOWED_ORIGINS(self) -> List[str]:
+        origins_env = os.getenv("ALLOWED_ORIGINS")
+        if origins_env:
+            try:
+                return json.loads(origins_env)
+            except json.JSONDecodeError:
+                return origins_env.split(",")
+        return [
+            "http://localhost:3000", 
+            "http://localhost:5173",
+            "https://retail-analytics-frontend.onrender.com"
+        ]
     
     # ML Models
     MODEL_PATH: str = "./models/"
