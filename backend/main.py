@@ -11,13 +11,24 @@ from app.api.routers import products, sales, customers, analytics, ml_models, re
 from app.database.connection import get_db, engine
 from app.database import models
 from app.core.config import settings
+import os
 
-# Create database tables
-models.Base.metadata.create_all(bind=engine)
+# Create database tables with error handling
+try:
+    models.Base.metadata.create_all(bind=engine)
+    print("Database tables created successfully")
+except Exception as e:
+    print(f"Database initialization error: {e}")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
+    print("Starting up Retail Analytics API...")
+    print(f"Environment: {settings.ENVIRONMENT}")
+    print(f"Database URL: {settings.DATABASE_URL}")
+    print(f"OpenAI API Key configured: {'Yes' if settings.OPENAI_API_KEY else 'No'}")
+    yield
+    # Shutdown
     print("Starting up Retail Analytics API...")
     yield
     # Shutdown
